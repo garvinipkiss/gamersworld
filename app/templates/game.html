@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+
+<!-- Styles block -->
+
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/game.css')}}">
+{% endblock %}
+
+<!-- Content block -->
+{% block content %}
+<div class="container">
+
+    <!-- Poster background -->
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath" style="background: url({{game.poster}}) no-repeat center center">
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
+            <h3>{{ game.title }}</h3>
+
+            <p class="overview"> {{ game.overview }}</p>
+
+            <p class="ratings"> <b> {{ game.vote_average }}</b> - <i>{{ game.vote_count}} votes </i> </p>
+            <a class="ratings" href="/game/review/new/{{game.id}}"> Write a new review</a>
+
+
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        <h1>Reviews</h1>
+        <hr>
+
+        {% if reviews %}
+            <h5>This game has {{reviews | count}}  <a href="{{url_for('main.game_reviews',id=game.id)}}">reviews</a></h5>
+
+        {% else%}
+            <h3 class="text-center">This movie has no reviews </h3>
+
+            <a class="btn btn-success btn-lg text-center" href="/game/review/new/{{game.id}}"> Write a new review</a>
+        {% endif %}
+
+    </div>
+
+</div>
+{% endblock %}
