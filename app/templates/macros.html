@@ -1,0 +1,38 @@
+<!-- Displaying game list macro  -->
+{% macro displayMovieList(game_list) %}
+
+    {% for game in game_list %}
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 game-card">
+            <img src="{{ game.poster }}" alt="{{ game.title }} poster" class="img-responsive">
+            <li class="text-center">
+                <a href="/game/{{game.id}}">
+                    {{ game.title|truncate(10)}}</a>
+            </li>
+        </div>
+
+    {% endfor %}
+
+{% endmacro %}
+
+<!-- Displaying reviews macro -->
+{% macro displayReviews(review_list) %}
+
+    {% for review in review_list %}
+
+    <div class="row">
+
+      <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+        <h4>Author</h4>
+        <p>{{review.user.username}}</p>
+      </div>
+      <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
+        <h2> <a href="{{url_for('main.single_review',id=review.id)}}">{{review.movie_title}}</a> </h2>
+
+
+      </div>
+
+    </div>
+
+    {% endfor %}
+
+{% endmacro %}
